@@ -1,0 +1,18 @@
+from django.urls import path, re_path
+from django.views.decorators.cache import cache_page
+from .views import *
+
+urlpatterns = [
+    #path('', index, name='home'), #http://127.0.0.1:8000/
+    path('', WomenHome.as_view(), name='home'), #http://127.0.0.1:8000/ # представление через класс
+    #path('category/<int:catid>/', categories), #http://127.0.0.1:8000/category/
+    re_path(r'^archive/(?P<year>[0-9]{4})/', archive), #использование регулярного выражения
+    path('about/', about, name='about'),
+    path('addpage/', AddPage.as_view(), name='add_page'),
+    path('contact/', ContactFormView.as_view(), name='contact'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('logout/', logout_user, name='logout'),
+    path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('category/<slug:cat_slug>/', WomenCategory.as_view(), name='category'),
+]
